@@ -1,0 +1,29 @@
+<div class="container mt-4 fade-in">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="page-title mb-0">My Posted Jobs</h2>
+      <p class="text-secondary mb-0">Track applications and manage openings</p>
+    </div>
+    <a routerLink="/employer/create-job" class="btn btn-primary">+ Create Job</a>
+  </div>
+
+  <div *ngIf="!jobs()" class="alert alert-info">
+    No jobs posted yet. Click Create Job to publish your first listing.
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-6" *ngFor="let job of jobs()">
+      <div class="card p-3 hover-lift">
+        <div class="d-flex justify-content-between align-items-start">
+          <h5>{{ job.title }}</h5>
+          <!-- <span class="badge bg-success">{{ job.isOpen ? 'Open' : 'Closed' }}</span> -->
+        </div>
+        <p class="mb-1 text-secondary">{{ job.location }} • ₹ {{ job.salary }} • {{ job.experience }} yrs</p>
+        <div class="d-flex gap-2 mt-2">
+          <a [routerLink]="['/employer/applicants', job.id]" class="btn btn-outline-primary btn-sm">View Applicants</a>
+          <button class="btn btn-outline-secondary btn-sm" disabled>Draft</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

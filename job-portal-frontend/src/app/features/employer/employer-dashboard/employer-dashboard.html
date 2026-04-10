@@ -1,0 +1,95 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-12">
+
+      <h1 class="mb-4">Employer Dashboard</h1>
+
+      
+      <div class="card mb-4" *ngIf="hasCompany()">
+        <div class="card-header">
+          <h5>Company Information</h5>
+        </div>
+        <div class="card-body">
+          <h6>{{ company()?.name }}</h6>
+          <p class="text-muted">{{ company()?.description }}</p>
+          <p class="text-muted">{{ company()?.location }}</p>
+        </div>
+      </div>
+
+      <div class="alert alert-warning" *ngIf="!hasCompany() && !loading()">
+        Create your company first.
+        <a routerLink="/employer/create-company" class="btn btn-warning ms-2">Create</a>
+      </div>
+
+      <div class="row mb-4" *ngIf="hasCompany()">
+        <div class="col-md-4">
+          <div class="card text-center">
+            <h2>{{ jobs().length }}</h2>
+            <p>Active Jobs</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card text-center">
+            <h2>{{ totalApplications() }}</h2>
+            <p>Total Applications</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card text-center">
+            <h2>1</h2>
+            <p>Companies</p>
+          </div>
+        </div>
+      </div>
+
+    
+      <div class="mb-4">
+        <a *ngIf="hasCompany()" routerLink="/employer/create-job" class="btn btn-primary me-2">
+          Post Job
+        </a>
+
+        <a *ngIf="hasCompany()" routerLink="/employer/jobs" class="btn btn-outline-primary me-2">
+          View Jobs
+        </a>
+
+        <a *ngIf="!hasCompany()" routerLink="/employer/create-company" class="btn btn-success">
+          Create Company
+        </a>
+      </div>
+
+      <div class="card" *ngIf="hasCompany()">
+        <div class="card-header d-flex justify-content-between">
+          <h5>Recent Jobs</h5>
+          <a routerLink="/employer/jobs">View All</a>
+        </div>
+
+        <div class="card-body">
+
+         
+          <div *ngIf="loading()" class="text-center">
+            <div class="spinner-border"></div>
+          </div>
+
+          
+          <div *ngIf="!loading() && jobs().length === 0" class="text-muted text-center">
+            No jobs yet
+          </div>
+
+          
+          <div *ngIf="!loading() && jobs().length > 0">
+            <div *ngFor="let job of recentJobs()" class="mb-3 border-bottom pb-2">
+              <h6>{{ job.title }}</h6>
+              <p class="text-muted">
+                {{ job.location }} • ₹{{ job.salary }}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

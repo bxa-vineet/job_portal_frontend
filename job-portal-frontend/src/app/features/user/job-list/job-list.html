@@ -1,0 +1,98 @@
+<div class="container mt-4 fade-in">
+
+  <h2 class="mb-4 text-center">Available Jobs</h2>
+
+ 
+  <div *ngIf="loading()" class="text-center">
+    <div class="spinner-border text-primary"></div>
+  </div>
+
+ 
+  <div *ngIf="!loading()">
+
+    
+    <div class="row mb-4">
+      <div class="col-md-8 mb-3">
+        <input
+          class="form-control"
+          placeholder="Search jobs, company, location"
+          [ngModel]="search()"
+          (ngModelChange)="search.set($event); filterJobs()" />
+      </div>
+
+      <div class="col-md-4 text-end">
+        <button class="btn btn-outline-secondary" (click)="getJobs()">
+          Refresh
+        </button>
+      </div>
+    </div>
+
+    
+    <div *ngIf="filteredJobs().length === 0" class="alert alert-warning">
+      No matching jobs found.
+    </div>
+
+    
+    <div class="row">
+      <div
+        class="col-md-4 mb-4"
+        *ngFor="let job of filteredJobs(); trackBy: trackByJobId"
+        @fadeIn>
+
+        <div class="card h-100">
+          <div class="card-body">
+
+            <h5 class="card-title">{{ job.title }}</h5>
+            <h6 class="text-muted">{{ job.companyName }}</h6>
+
+            <p>
+              {{ job.location }} <br>
+              ₹ {{ job.salary }}
+            </p>
+
+            <button class="btn btn-primary w-100" (click)="selectJob(job)">
+              Apply Now
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div
+  *ngIf="selectedJob()"
+  class="modal fade show d-block"
+  style="background: rgba(0,0,0,0.5)"
+  @fadeIn>
+
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Apply for {{ selectedJob()?.title }}
+        </h5>
+
+        <button class="btn-close" (click)="close()"></button>
+      </div>
+
+      <div class="modal-body">
+        <input type="file"
+               class="form-control"
+               (change)="onFileSelect($event)">
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="close()">Cancel</button>
+        <button class="btn btn-primary" (click)="apply()">Submit</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

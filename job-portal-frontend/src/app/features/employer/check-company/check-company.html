@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body text-center">
+          <h2 class="card-title">Checking Company Setup</h2>
+          <div class="spinner-border" role="status" *ngIf="loading">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p *ngIf="!loading">{{ message }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

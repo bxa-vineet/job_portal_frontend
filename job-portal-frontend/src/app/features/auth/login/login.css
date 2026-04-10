@@ -1,0 +1,24 @@
+/* Custom styles for Login */
+
+.card {
+  border: none;
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.page-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.btn-primary {
+  border: none;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
+}
+
+.form-text {
+  font-size: 0.85rem;
+}

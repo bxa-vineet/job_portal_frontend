@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fade-in">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Job Portal</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav" *ngIf="auth.getToken()">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item" *ngIf="getRole() === 'USER'">
+          <a class="nav-link" routerLink="/user/jobs" routerLinkActive="active">Jobs</a>
+        </li>
+        <li class="nav-item" *ngIf="getRole() === 'USER'">
+          <a class="nav-link" routerLink="/user/applications" routerLinkActive="active">My Applications</a>
+        </li>
+        <li class="nav-item" *ngIf="getRole() === 'EMPLOYER'">
+          <a class="nav-link" routerLink="/employer" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li class="nav-item" *ngIf="getRole() === 'EMPLOYER'">
+          <a class="nav-link" routerLink="/employer/jobs" routerLinkActive="active">My Jobs</a>
+        </li>
+        <li class="nav-item" *ngIf="getRole() === 'EMPLOYER'">
+          <a class="nav-link" routerLink="/employer/create-job">Create Job</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <button class="btn btn-outline-light" (click)="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

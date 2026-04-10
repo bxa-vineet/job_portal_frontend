@@ -1,0 +1,37 @@
+<div class="container">
+  <section class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-xl-4 col-lg-5 col-md-7">
+      <div class="card p-4 fade-in">
+        <h2 class="page-title text-center">Welcome Back</h2>
+        <p class="text-center text-secondary">Log in to continue to the job portal</p>
+
+        <form (ngSubmit)="login()" #loginForm="ngForm" novalidate>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input id="username" type="text" class="form-control" [(ngModel)]="username" name="username" required placeholder="johndoe" />
+            <div class="form-text text-danger" *ngIf="loginForm.submitted && !username">Username is required</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input id="password" type="password" class="form-control" [(ngModel)]="password" name="password" required placeholder="••••••••" />
+            <div class="form-text text-danger" *ngIf="loginForm.submitted && !password">Password is required</div>
+          </div>
+
+          <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-primary" [disabled]="loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+              {{ loading ? 'Signing in...' : 'Sign In' }}
+            </button>
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger py-2">{{ error }}</div>
+        </form>
+
+        <p class="text-center mb-0">
+          New user? <a routerLink="/signup">Create an account</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>

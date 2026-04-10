@@ -1,0 +1,66 @@
+<div class="container">
+  <section class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-xl-4 col-lg-5 col-md-7">
+      <div class="card p-4 fade-in">
+        <h2 class="page-title text-center">Create Account</h2>
+        <p class="text-center text-secondary">Join as candidate or employer</p>
+
+       
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="successMessage">
+          {{ successMessage }}
+          <button type="button" class="btn-close" (click)="clearMessages()"></button>
+        </div>
+
+       
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="errorMessage">
+          {{ errorMessage }}
+          <button type="button" class="btn-close" (click)="clearMessages()"></button>
+        </div>
+
+        <form (ngSubmit)="register()" #signupForm="ngForm" novalidate>
+          <div class="mb-3">
+            <label class="form-label" for="name">Full Name</label>
+            <input id="name" type="text" class="form-control" [(ngModel)]="name" name="name" required placeholder="John Doe" [disabled]="loading" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="username">Username</label>
+            <input id="username" type="text" class="form-control" [(ngModel)]="username" name="username" required placeholder="johndoe" [disabled]="loading" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input id="email" type="email" class="form-control" [(ngModel)]="email" name="email" required placeholder="me@example.com" [disabled]="loading" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="password">Password</label>
+            <input id="password" type="password" class="form-control" [(ngModel)]="password" name="password" required placeholder="••••••••" [disabled]="loading" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="role">Account Type</label>
+            <select id="role" class="form-select" [(ngModel)]="role" name="role" [disabled]="loading">
+              <option value="USER">Job Seeker</option>
+              <option value="EMPLOYER">Employer</option>
+            </select>
+          </div>
+
+          <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-success" [disabled]="loading">
+              <span *ngIf="!loading">Sign Up</span>
+              <span *ngIf="loading">
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Creating...
+              </span>
+            </button>
+          </div>
+
+          <p class="text-center mb-0">
+            Already have an account? <a routerLink="/login">Log in</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>

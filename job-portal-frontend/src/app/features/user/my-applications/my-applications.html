@@ -1,0 +1,21 @@
+<div class="container mt-4 fade-in">
+  <h2 class="mb-4 text-center">My Applications</h2>
+
+  <div *ngIf="loading()" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!loading()">
+    <div class="col-md-6 mb-4" *ngFor="let app of applications(); trackBy: trackByAppId" @fadeIn>
+      <div class="card h-100 hover-lift">
+        <div class="card-body">
+          <h5 class="card-title">{{ app.jobTitle }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ app.companyName }}</h6>
+          <span class="badge" [ngClass]="getStatusClass(app.status)">{{ app.status }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

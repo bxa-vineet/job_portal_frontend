@@ -1,0 +1,127 @@
+<div class="container">
+  <div class="card p-4 mt-5 fade-in">
+    <h2 class="page-title">Post Job Opening</h2>
+    <p class="text-secondary mb-4">Enter the job details and invite candidates</p>
+
+    <!-- Success Message -->
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="successMessage">
+      <strong>Success!</strong> {{ successMessage }}
+      <button type="button" class="btn-close" (click)="clearMessages()"></button>
+    </div>
+
+    <!-- Error Message -->
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="errorMessage">
+      <strong>Error!</strong> {{ errorMessage }}
+      <button type="button" class="btn-close" (click)="clearMessages()"></button>
+    </div>
+
+    <!-- Loading State -->
+    <div class="alert alert-info" *ngIf="companyLoading">
+      <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+      Loading company information...
+    </div>
+
+    <form (ngSubmit)="createJob()" #newJobForm="ngForm" novalidate *ngIf="!companyLoading">
+      <div class="row g-3">
+        <div class="col-12">
+          <label for="title" class="form-label">Job Title</label>
+          <input id="title" class="form-control" [(ngModel)]="title" name="title" required [disabled]="loading" />
+        </div>
+
+        <div class="col-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" class="form-control" rows="3" [(ngModel)]="description" name="description" required [disabled]="loading"></textarea>
+        </div>
+
+        <div class="col-md-6">
+          <label for="location" class="form-label">Location</label>
+          <input id="location" class="form-control" [(ngModel)]="location" name="location" required [disabled]="loading" />
+        </div>
+
+        <div class="col-md-6">
+          <label for="salary" class="form-label">Salary</label>
+          <input id="salary" class="form-control" type="number" [(ngModel)]="salary" name="salary" required [disabled]="loading" />
+        </div>
+
+        <div class="col-md-6">
+          <label for="experience" class="form-label">Experience (years)</label>
+          <input id="experience" class="form-control" type="number" [(ngModel)]="experience" name="experience" required [disabled]="loading" />
+        </div>
+
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="form-check">
+            <input id="isFresher" type="checkbox" class="form-check-input" [(ngModel)]="isFresher" name="isFresher" [disabled]="loading" />
+            <label class="form-check-label" for="isFresher">Fresher</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary" [disabled]="!title || !description || !location || loading">
+          <span *ngIf="!loading">Create Job</span>
+          <span *ngIf="loading">
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Creating...
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" [class.show]="showSuccessModal" [style.display]="showSuccessModal ? 'block' : 'none'" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content border-0 shadow-lg">
+      <div class="modal-header bg-success text-white border-0">
+        <h5 class="modal-title">
+          <i class="fas fa-check-circle me-2"></i>Success!
+        </h5>
+        <button type="button" class="btn-close btn-close-white" (click)="closeSuccessModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center py-4">
+        <div class="mb-3">
+          <i class="fas fa-thumbs-up fa-3x text-success"></i>
+        </div>
+        <h4 class="mb-2">{{ successTitle }}</h4>
+        <p class="text-muted mb-0">{{ successMessage }}</p>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-success w-100" (click)="closeSuccessModal()">
+          View All Jobs
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" [class.show]="showErrorModal" [style.display]="showErrorModal ? 'block' : 'none'" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content border-0 shadow-lg">
+      <div class="modal-header bg-danger text-white border-0">
+        <h5 class="modal-title">
+          <i class="fas fa-exclamation-circle me-2"></i>{{ errorTitle }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" (click)="closeErrorModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center py-4">
+        <div class="mb-3">
+          <i class="fas fa-times-circle fa-3x text-danger"></i>
+        </div>
+        <p class="text-muted mb-0">{{ errorMessage }}</p>
+      </div>
+      <div class="modal-footer border-0 d-flex gap-2">
+        <button type="button" class="btn btn-outline-secondary flex-grow-1" (click)="closeErrorModal()">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-danger flex-grow-1" (click)="retryCreateJob()">
+          Try Again
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div class="modal-backdrop fade" [class.show]="showSuccessModal || showErrorModal" *ngIf="showSuccessModal || showErrorModal"></div>
